@@ -1,0 +1,256 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────
+   Tokens
+   ───────────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    --accent: 139 92 246;
+    --highlight: 34 211 238;
+
+    /* Admin surface (shadcn-compatible HSL triplets) */
+    --background: 240 10% 3%;
+    --foreground: 40 12% 94%;
+    --card: 240 8% 7%;
+    --card-foreground: 40 12% 94%;
+    --muted: 240 6% 12%;
+    --muted-foreground: 240 5% 62%;
+    --border: 240 6% 16%;
+    --input: 240 6% 16%;
+    --ring: 258 90% 66%;
+
+    --header-h: 5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: auto; /* Lenis owns scrolling */
+  }
+
+  body {
+    @apply bg-void text-bone antialiased;
+    font-family: var(--font-sans), system-ui, sans-serif;
+    overscroll-behavior-y: none;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.35);
+    color: #fff;
+  }
+
+  /* Focus ring: invisible for pointer users, unmistakable for keyboard users. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--highlight));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a0d;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgb(var(--accent) / 0.6), rgb(var(--highlight) / 0.4));
+    border-radius: 999px;
+    border: 3px solid #0a0a0d;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Components
+   ───────────────────────────────────────────────────────────── */
+@layer components {
+  .glass {
+    background-image: theme('backgroundImage.glass');
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: theme('boxShadow.elevated'), theme('boxShadow.inset');
+  }
+
+  .glass-soft {
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .eyebrow {
+    @apply font-mono text-fluid-xs uppercase tracking-[0.32em] text-white/45;
+  }
+
+  .display {
+    font-family: var(--font-display), Impact, sans-serif;
+    font-weight: 800;
+    line-height: 0.86;
+    letter-spacing: theme('letterSpacing.mega');
+    text-transform: uppercase;
+  }
+
+  /* Gradient text that keeps a solid fallback if background-clip is unsupported. */
+  .text-gradient {
+    background: linear-gradient(
+      120deg,
+      #ffffff 0%,
+      #ffffff 35%,
+      rgb(var(--accent)) 60%,
+      rgb(var(--highlight)) 85%,
+      #ffffff 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-white/12 to-transparent;
+  }
+
+  /* Conic border used on service cards; the mask keeps the fill hollow. */
+  .border-conic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--angle, 0deg),
+      transparent 0%,
+      rgb(var(--accent) / 0.9) 12%,
+      rgb(var(--highlight) / 0.9) 22%,
+      transparent 38%,
+      transparent 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s theme('transitionTimingFunction.expo');
+    pointer-events: none;
+  }
+
+  .border-conic:hover::before,
+  .border-conic:focus-within::before {
+    opacity: 1;
+  }
+
+  .mask-fade-y {
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Utilities
+   ───────────────────────────────────────────────────────────── */
+@layer utilities {
+  .gpu {
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .perspective {
+    perspective: 1400px;
+    perspective-origin: 50% 50%;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Custom cursor — only hide the native one where we replace it
+   ───────────────────────────────────────────────────────────── */
+@media (hover: hover) and (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* Grain overlay: a single repeating SVG turbulence, GPU-composited. */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 1.2s steps(4) infinite;
+}
+
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2%, 1%); }
+  50% { transform: translate(1%, -2%); }
+  75% { transform: translate(-1%, -1%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Reduced motion — keep meaning, drop movement
+   ───────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .grain::after {
+    animation: none;
+  }
+
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: auto !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

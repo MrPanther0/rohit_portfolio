@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" font-family="Georgia, 'Times New Roman', serif">
+  <rect width="1200" height="1500" fill="#e8ddc8"/>
+  <rect x="230" y="150" width="740" height="1200" rx="24" fill="#3b2417"/>
+  <rect x="230" y="150" width="740" height="1200" rx="24" fill="none" stroke="#2a1810" stroke-width="4"/>
+  <rect x="300" y="240" width="600" height="470" rx="12" fill="#e8ddc8"/>
+  <circle cx="600" cy="430" r="120" fill="#c96f2c"/>
+  <path d="M600 330 q45 100 0 200 q-45 -100 0 -200 Z" fill="#3b2417"/>
+  <text x="600" y="640" text-anchor="middle" fill="#3b2417" font-size="96" font-weight="700" letter-spacing="26">KAVA</text>
+  <text x="600" y="800" text-anchor="middle" fill="#e8ddc8" font-size="38" letter-spacing="10" font-family="Arial">SINGLE ORIGIN · DARK ROAST</text>
+  <g stroke="#e8ddc8" stroke-width="2" opacity="0.5">
+    <line x1="300" y1="860" x2="900" y2="860"/>
+    <line x1="300" y1="1180" x2="900" y2="1180"/>
+  </g>
+  <text x="600" y="1000" text-anchor="middle" fill="#c96f2c" font-size="140" font-weight="700" font-style="italic">Nº3</text>
+  <text x="600" y="1090" text-anchor="middle" fill="#e8ddc8" font-size="30" letter-spacing="8" font-family="Arial">NOTES OF COCOA · FIG · SMOKE</text>
+  <text x="600" y="1265" text-anchor="middle" fill="#e8ddc8" font-size="32" letter-spacing="14" font-family="Arial">250g — WHOLE BEANS</text>
+</svg>

@@ -1,0 +1,72 @@
+[
+  {
+    "id": "seed-7",
+    "title": "NEON — AI Motion Study",
+    "category": "AI / Motion",
+    "description": "Generative motion exploration — AI-assisted visuals art-directed into a looping brand ident. Made to show clients how far a brand can move.",
+    "year": "2026",
+    "featured": false,
+    "image": "/uploads/seed-neon.svg",
+    "createdAt": "2026-07-05T10:00:00.000Z"
+  },
+  {
+    "id": "seed-1",
+    "title": "AURA — Brand Identity",
+    "category": "Branding",
+    "description": "Complete visual identity for a modern wellness brand — logotype, colour system, stationery and launch collateral built around a single glowing mark.",
+    "year": "2026",
+    "featured": true,
+    "image": "/uploads/seed-aura.svg",
+    "createdAt": "2026-07-01T10:00:00.000Z"
+  },
+  {
+    "id": "seed-2",
+    "title": "Midnight Jazz Festival",
+    "category": "Poster",
+    "description": "Key-art poster series for a late-night jazz festival. Loud type, deep gradients, printed in three limited-run colourways.",
+    "year": "2026",
+    "featured": false,
+    "image": "/uploads/seed-jazz.svg",
+    "createdAt": "2026-06-20T10:00:00.000Z"
+  },
+  {
+    "id": "seed-3",
+    "title": "Monogram Series Vol. 1",
+    "category": "Logo",
+    "description": "A study of nine custom monograms exploring geometry, negative space and rhythm — crafted for brands that want a mark, not a template.",
+    "year": "2025",
+    "featured": false,
+    "image": "/uploads/seed-monogram.svg",
+    "createdAt": "2026-06-10T10:00:00.000Z"
+  },
+  {
+    "id": "seed-4",
+    "title": "BLOOM — Social Campaign",
+    "category": "Social Media",
+    "description": "A 30-day content system for a D2C skincare launch — feed grid, story templates and motion covers that lifted engagement 3×.",
+    "year": "2026",
+    "featured": true,
+    "image": "/uploads/seed-bloom.svg",
+    "createdAt": "2026-05-28T10:00:00.000Z"
+  },
+  {
+    "id": "seed-5",
+    "title": "KAVA Coffee Packaging",
+    "category": "Packaging",
+    "description": "Retail packaging for a specialty coffee roaster — a warm, tactile label system that stands out on shelf and photographs beautifully.",
+    "year": "2025",
+    "featured": false,
+    "image": "/uploads/seed-kava.svg",
+    "createdAt": "2026-05-15T10:00:00.000Z"
+  },
+  {
+    "id": "seed-6",
+    "title": "Faces — Illustration Series",
+    "category": "Illustration",
+    "description": "Abstract portrait series exploring shape language and bold colour blocking, later adapted into prints and album art.",
+    "year": "2025",
+    "featured": false,
+    "image": "/uploads/seed-faces.svg",
+    "createdAt": "2026-05-01T10:00:00.000Z"
+  }
+]

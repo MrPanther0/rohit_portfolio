@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Admin — Portfolio</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%232438ff'/%3E%3Ctext x='50' y='72' font-size='62' font-weight='bold' text-anchor='middle' font-family='Georgia' fill='%23f2efe6'%3ER%3C/text%3E%3C/svg%3E">
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/assets/admin.css">
+</head>
+<body>
+  <div class="admin-shell">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">ROHIT<span>.</span><small>studio admin</small></div>
+      <nav class="sidebar-nav">
+        <button class="side-link active" data-panel="works">🖼&nbsp; My Works</button>
+        <button class="side-link" data-panel="settings">⚙&nbsp; Site Settings</button>
+        <button class="side-link" data-panel="password">🔒&nbsp; Password</button>
+      </nav>
+      <div class="sidebar-foot">
+        <a class="side-link ghost" href="/" target="_blank" rel="noopener">↗&nbsp; View live site</a>
+        <button class="side-link ghost" id="logoutBtn">←&nbsp; Log out</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+
+      <!-- WORKS -->
+      <section class="panel active" id="panel-works">
+        <header class="panel-head">
+          <div>
+            <h1>My Works</h1>
+            <p class="panel-sub">Everything here is live on your site instantly. <span id="worksCount"></span></p>
+          </div>
+          <button class="btn-primary" id="addWorkBtn">+ Upload new work</button>
+        </header>
+        <div class="works-admin-grid" id="adminWorksGrid"></div>
+        <div class="empty-state" id="adminEmpty" hidden>
+          <p>No works yet.</p>
+          <button class="btn-primary" id="emptyAddBtn">+ Upload your first work</button>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section class="panel" id="panel-settings">
+        <header class="panel-head">
+          <div>
+            <h1>Site Settings</h1>
+            <p class="panel-sub">Your name, story and links — shown across the whole site.</p>
+          </div>
+        </header>
+        <form class="form" id="settingsForm">
+          <div class="form-grid">
+            <label class="field"><span>Name</span><input class="input" name="name" placeholder="Rohit"></label>
+            <label class="field"><span>Role / Title</span><input class="input" name="role" placeholder="Graphic Designer"></label>
+            <label class="field"><span>Availability badge</span><input class="input" name="availability" placeholder="Open for projects"></label>
+            <label class="field"><span>Location</span><input class="input" name="location" placeholder="India"></label>
+            <label class="field field--full"><span>Hero tagline</span><input class="input" name="tagline" placeholder="One bold sentence about what you do"></label>
+            <label class="field field--full"><span>About statement</span><textarea class="input" name="about" rows="4" placeholder="The big statement in your About section"></textarea></label>
+            <label class="field"><span>Email</span><input class="input" name="email" type="email" placeholder="you@email.com"></label>
+            <label class="field"><span>Instagram URL</span><input class="input" name="instagram" placeholder="instagram.com/you"></label>
+            <label class="field"><span>Behance URL</span><input class="input" name="behance" placeholder="behance.net/you"></label>
+            <label class="field"><span>Dribbble URL</span><input class="input" name="dribbble" placeholder="dribbble.com/you"></label>
+            <label class="field"><span>LinkedIn URL</span><input class="input" name="linkedin" placeholder="linkedin.com/in/you"></label>
+          </div>
+          <h2 class="form-section-title">Stats shown on the site</h2>
+          <div class="form-grid form-grid--3">
+            <label class="field"><span>Years of design</span><input class="input" name="stat_years" type="number" min="0"></label>
+            <label class="field"><span>Projects delivered</span><input class="input" name="stat_projects" type="number" min="0"></label>
+            <label class="field"><span>Happy clients</span><input class="input" name="stat_clients" type="number" min="0"></label>
+          </div>
+          <button class="btn-primary" type="submit">Save settings</button>
+        </form>
+      </section>
+
+      <!-- PASSWORD -->
+      <section class="panel" id="panel-password">
+        <header class="panel-head">
+          <div>
+            <h1>Change Password</h1>
+            <p class="panel-sub">Default password is <code>rohit123</code> — change it before sharing your site.</p>
+          </div>
+        </header>
+        <form class="form form--narrow" id="passwordForm">
+          <label class="field"><span>Current password</span><input class="input" name="current" type="password" autocomplete="current-password" required></label>
+          <label class="field"><span>New password (min 6 chars)</span><input class="input" name="next" type="password" autocomplete="new-password" required minlength="6"></label>
+          <label class="field"><span>Confirm new password</span><input class="input" name="confirm" type="password" autocomplete="new-password" required></label>
+          <button class="btn-primary" type="submit">Update password</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <!-- Add / Edit modal -->
+  <div class="modal" id="workModal" hidden>
+    <div class="modal-backdrop" data-modal-close></div>
+    <form class="modal-card" id="workForm">
+      <header class="modal-head">
+        <h2 id="modalTitle">Upload new work</h2>
+        <button type="button" class="icon-btn" data-modal-close aria-label="Close">✕</button>
+      </header>
+
+      <div class="dropzone" id="dropzone">
+        <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.webp,.gif,.svg,.avif,.mp4,.webm" hidden>
+        <img id="dropPreview" alt="" hidden>
+        <video id="dropPreviewVid" muted loop playsinline hidden></video>
+        <div class="dropzone-hint" id="dropHint">
+          <strong>Drop your artwork or video here</strong>
+          <span>images (jpg, png, webp, gif, svg) or motion (mp4, webm) — max 60 MB</span>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <label class="field"><span>Title *</span><input class="input" name="title" required maxlength="120" placeholder="e.g. NOVA — Brand Identity"></label>
+        <label class="field"><span>Category *</span>
+          <input class="input" name="category" list="catList" required maxlength="60" placeholder="Pick or type your own">
+          <datalist id="catList">
+            <option value="Branding"></option><option value="Logo"></option>
+            <option value="Poster"></option><option value="Social Media"></option>
+            <option value="Packaging"></option><option value="Illustration"></option>
+            <option value="Typography"></option><option value="UI Design"></option>
+            <option value="AI / Motion"></option>
+          </datalist>
+        </label>
+        <label class="field"><span>Year</span><input class="input" name="year" maxlength="10" placeholder="2026"></label>
+        <label class="field field--check">
+          <input type="checkbox" name="featured">
+          <span>★ Featured — show as a large highlight tile</span>
+        </label>
+        <label class="field field--full"><span>Description</span><textarea class="input" name="description" rows="3" maxlength="1000" placeholder="A line or two about the project — clients read this in the lightbox"></textarea></label>
+      </div>
+
+      <footer class="modal-foot">
+        <button type="button" class="btn-ghost" data-modal-close>Cancel</button>
+        <button type="submit" class="btn-primary" id="workSubmit">Publish to site →</button>
+      </footer>
+    </form>
+  </div>
+
+  <div class="toast-stack" id="toasts"></div>
+
+  <script src="/admin/assets/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "Portfolio — Graphic Design Studio",
+  "short_name": "Portfolio",
+  "description": "Identity systems, editorial design and motion work.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

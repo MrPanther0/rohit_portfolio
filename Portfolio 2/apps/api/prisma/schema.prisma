@@ -1,0 +1,405 @@
+// ─────────────────────────────────────────────────────────────────────────────
+//  Portfolio CMS — data model
+//  PostgreSQL + Prisma
+// ─────────────────────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Auth ─────────────────────────────────────────────────────────────────────
+
+enum Role {
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  passwordHash String
+  role         Role      @default(EDITOR)
+  avatarUrl    String?
+  active       Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  sessions RefreshToken[]
+
+  @@index([role])
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userAgent String?
+  ip        String?
+  remember  Boolean   @default(false)
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("refresh_tokens")
+}
+
+// ── Media ────────────────────────────────────────────────────────────────────
+
+model Folder {
+  id       String   @id @default(cuid())
+  name     String
+  parentId String?
+  parent   Folder?  @relation("FolderTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children Folder[] @relation("FolderTree")
+  media    Media[]
+  createdAt DateTime @default(now())
+
+  @@unique([parentId, name])
+  @@map("folders")
+}
+
+enum MediaKind {
+  IMAGE
+  VIDEO
+  DOCUMENT
+  AUDIO
+  LOTTIE
+}
+
+model Media {
+  id           String    @id @default(cuid())
+  url          String
+  thumbnailUrl String?
+  storageKey   String
+  driver       String    @default("local")
+  filename     String
+  mimeType     String
+  kind         MediaKind @default(IMAGE)
+  size         Int
+  width        Int?
+  height       Int?
+  duration     Float?
+  blurDataUrl  String?
+  alt          String?
+  folderId     String?
+  folder       Folder?   @relation(fields: [folderId], references: [id], onDelete: SetNull)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  coverOf     Project[]       @relation("ProjectCover")
+  ogImageOf   Project[]       @relation("ProjectOgImage")
+  galleryUses ProjectMedia[]
+  avatarOf    Testimonial[]
+  logoOf      Client[]
+
+  @@index([folderId])
+  @@index([kind])
+  @@index([createdAt])
+  @@map("media")
+}
+
+// ── Taxonomy ─────────────────────────────────────────────────────────────────
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  color       String    @default("#8B5CF6")
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  projects Project[]
+
+  @@index([order])
+  @@map("categories")
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+
+  projects ProjectTag[]
+
+  @@map("tags")
+}
+
+model ProjectTag {
+  projectId String
+  tagId     String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, tagId])
+  @@map("project_tags")
+}
+
+// ── Projects ─────────────────────────────────────────────────────────────────
+
+enum ProjectStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ProjectMediaKind {
+  GALLERY
+  SKETCH
+  PROCESS
+  OUTPUT
+  BEFORE
+  AFTER
+}
+
+model Project {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  subtitle    String?
+  excerpt     String?
+  description String        @default("")
+  status      ProjectStatus @default(DRAFT)
+  featured    Boolean       @default(false)
+  order       Int           @default(0)
+
+  client       String?
+  role         String?
+  year         Int?
+  duration     String?
+  deliverables String[]     @default([])
+  technologies String[]     @default([])
+
+  accentColor    String  @default("#8B5CF6")
+  secondaryColor String  @default("#22D3EE")
+  palette        Json    @default("[]")
+  typography     Json    @default("[]")
+  processSteps   Json    @default("[]")
+  metrics        Json    @default("[]")
+  feedback       Json?
+
+  heroVideoUrl String?
+  liveUrl      String?
+  behanceUrl   String?
+  dribbbleUrl  String?
+
+  seoTitle       String?
+  seoDescription String?
+  canonicalUrl   String?
+
+  views Int @default(0)
+
+  coverId String?
+  cover   Media?  @relation("ProjectCover", fields: [coverId], references: [id], onDelete: SetNull)
+
+  ogImageId String?
+  ogImage   Media?  @relation("ProjectOgImage", fields: [ogImageId], references: [id], onDelete: SetNull)
+
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  tags    ProjectTag[]
+  gallery ProjectMedia[]
+
+  publishedAt DateTime?
+  archivedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  pageViews PageView[]
+
+  @@index([status, order])
+  @@index([featured])
+  @@index([categoryId])
+  @@index([publishedAt])
+  @@map("projects")
+}
+
+model ProjectMedia {
+  id        String           @id @default(cuid())
+  projectId String
+  project   Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  mediaId   String
+  media     Media            @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  kind      ProjectMediaKind @default(GALLERY)
+  caption   String?
+  span      Int              @default(1)
+  order     Int              @default(0)
+
+  @@unique([projectId, mediaId, kind])
+  @@index([projectId, order])
+  @@map("project_media")
+}
+
+// ── Marketing content ────────────────────────────────────────────────────────
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String?
+  company   String?
+  quote     String
+  rating    Int      @default(5)
+  featured  Boolean  @default(false)
+  published Boolean  @default(true)
+  order     Int      @default(0)
+  avatarId  String?
+  avatar    Media?   @relation(fields: [avatarId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, order])
+  @@map("testimonials")
+}
+
+model Client {
+  id        String   @id @default(cuid())
+  name      String
+  url       String?
+  wordmark  String?
+  logoId    String?
+  logo      Media?   @relation(fields: [logoId], references: [id], onDelete: SetNull)
+  published Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, order])
+  @@map("clients")
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  icon        String   @default("sparkles")
+  features    String[] @default([])
+  accent      String   @default("#8B5CF6")
+  priceFrom   String?
+  published   Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([published, order])
+  @@map("services")
+}
+
+model Award {
+  id           String   @id @default(cuid())
+  title        String
+  organization String
+  year         Int
+  description  String?
+  url          String?
+  published    Boolean  @default(true)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([published, year])
+  @@map("awards")
+}
+
+// ── Inbound ──────────────────────────────────────────────────────────────────
+
+enum ContactStatus {
+  NEW
+  READ
+  REPLIED
+  ARCHIVED
+  SPAM
+}
+
+model ContactRequest {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  budget    String?
+  message   String
+  status    ContactStatus @default(NEW)
+  ip        String?
+  userAgent String?
+  referrer  String?
+  notes     String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status, createdAt])
+  @@map("contact_requests")
+}
+
+// ── Analytics ────────────────────────────────────────────────────────────────
+
+model PageView {
+  id        String   @id @default(cuid())
+  path      String
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  referrer  String?
+  device    String?
+  country   String?
+  sessionId String
+  duration  Int?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([path])
+  @@index([projectId])
+  @@index([sessionId])
+  @@map("page_views")
+}
+
+model EventLog {
+  id        String   @id @default(cuid())
+  type      String
+  label     String?
+  path      String?
+  meta      Json?
+  sessionId String?
+  createdAt DateTime @default(now())
+
+  @@index([type, createdAt])
+  @@map("event_logs")
+}
+
+// ── Settings ─────────────────────────────────────────────────────────────────
+
+model SiteSettings {
+  id           String   @id @default("singleton")
+  ownerName    String   @default("Rohit")
+  role         String   @default("Graphic Designer & Visual Storyteller")
+  headline     String   @default("CREATIVITY WITHOUT LIMITS")
+  tagline      String   @default("Design that refuses to sit still.")
+  bio          String   @default("")
+  email        String   @default("hello@studio.dev")
+  phone        String?
+  location     String   @default("Remote — Worldwide")
+  availability String   @default("Available for select projects")
+  resumeUrl    String?
+  socials      Json     @default("[]")
+  stats        Json     @default("[]")
+  timeline     Json     @default("[]")
+  skills       Json     @default("[]")
+  philosophy   Json     @default("[]")
+  seo          Json     @default("{}")
+  theme        Json     @default("{}")
+  updatedAt    DateTime @updatedAt
+
+  @@map("site_settings")
+}

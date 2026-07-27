@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" font-family="Georgia, 'Times New Roman', serif">
+  <rect width="1200" height="1500" fill="#f3f1ea"/>
+  <g stroke="#151513" stroke-width="2" opacity="0.25">
+    <line x1="400" y1="120" x2="400" y2="1380"/>
+    <line x1="800" y1="120" x2="800" y2="1380"/>
+    <line x1="80" y1="540" x2="1120" y2="540"/>
+    <line x1="80" y1="960" x2="1120" y2="960"/>
+  </g>
+  <g fill="#151513" text-anchor="middle" font-weight="700">
+    <text x="240" y="400" font-size="170">R°</text>
+    <circle cx="600" cy="340" r="95" fill="none" stroke="#151513" stroke-width="14"/>
+    <text x="600" y="395" font-size="150" fill="#151513">K</text>
+    <text x="960" y="400" font-size="170" font-style="italic">Vo</text>
+    <rect x="150" y="640" width="180" height="180" fill="none" stroke="#151513" stroke-width="14"/>
+    <text x="240" y="815" font-size="150">M</text>
+    <text x="600" y="820" font-size="190" letter-spacing="-18">AV</text>
+    <text x="960" y="815" font-size="160">§8</text>
+    <text x="240" y="1240" font-size="160" font-style="italic">fx</text>
+    <circle cx="600" cy="1180" r="95" fill="#151513"/>
+    <text x="600" y="1235" font-size="150" fill="#f3f1ea">O</text>
+    <text x="960" y="1240" font-size="170" letter-spacing="-10">7L</text>
+  </g>
+  <text x="90" y="90" fill="#151513" font-size="30" letter-spacing="8" font-family="Arial" font-weight="700">MONOGRAM SERIES</text>
+  <text x="1110" y="90" text-anchor="end" fill="#151513" font-size="30" letter-spacing="6" font-family="Arial">VOL.1</text>
+</svg>

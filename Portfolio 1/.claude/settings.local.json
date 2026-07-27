@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(node --version)",
+      "PowerShell(npm --version)",
+      "PowerShell(npm install)",
+      "WebFetch(domain:www.moncy.dev)",
+      "mcp__claude-in-chrome__navigate",
+      "mcp__claude-in-chrome__tabs_context_mcp",
+      "Bash(curl -sL https://www.moncy.dev/)",
+      "Bash(curl -sL https://www.moncy.dev/assets/index-BahYYlp2.css -o /tmp/moncy.css)",
+      "Read(//tmp/**)",
+      "Bash(grep -oE '\\\\.[a-zA-Z][a-zA-Z0-9_-]{3,}' /tmp/moncy.css)",
+      "Bash(grep -oE '#[0-9a-fA-F]{3,8}\\\\b' /tmp/moncy-MainContainer-C5g58z3x.css)",
+      "Bash(grep -oE '\\\\.[a-zA-Z][a-zA-Z0-9_-]{3,}' /tmp/moncy-MainContainer-C5g58z3x.css)",
+      "Bash(grep -oE '\\(backdrop-filter|mix-blend-mode|filter:\\\\s*blur|text-stroke|-webkit-text-stroke|radial-gradient|linear-gradient\\)[^;]{0,60}' /tmp/moncy-MainContainer-C5g58z3x.css)",
+      "PowerShell(Stop-Process -Id 54484 -Force -Confirm:$false)",
+      "PowerShell(\"stopped\")"
+    ]
+  }
+}

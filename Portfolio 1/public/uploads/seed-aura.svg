@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="42%" r="60%">
+      <stop offset="0%" stop-color="#c9a8ff"/>
+      <stop offset="45%" stop-color="#7f40ff"/>
+      <stop offset="100%" stop-color="#0a0714"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#efe4ff"/>
+      <stop offset="100%" stop-color="#a87cff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1500" fill="#0a0714"/>
+  <circle cx="600" cy="640" r="430" fill="url(#glow)"/>
+  <circle cx="600" cy="640" r="300" fill="none" stroke="url(#ring)" stroke-width="2" opacity="0.7"/>
+  <circle cx="600" cy="640" r="360" fill="none" stroke="url(#ring)" stroke-width="1" opacity="0.35"/>
+  <circle cx="600" cy="640" r="500" fill="none" stroke="#a87cff" stroke-width="1" opacity="0.15"/>
+  <circle cx="600" cy="640" r="120" fill="#0a0714"/>
+  <circle cx="600" cy="640" r="120" fill="none" stroke="#a87cff" stroke-width="3"/>
+  <text x="600" y="1180" text-anchor="middle" fill="#f4f1f7" font-size="200" font-weight="900" letter-spacing="30">AURA</text>
+  <text x="600" y="1250" text-anchor="middle" fill="#8a7f9f" font-size="34" letter-spacing="14">WELLNESS · IDENTITY · 2026</text>
+  <text x="90" y="120" fill="#a87cff" font-size="30" letter-spacing="8" font-weight="700">BRAND IDENTITY</text>
+  <text x="1110" y="120" text-anchor="end" fill="#8a7f9f" font-size="30" letter-spacing="6">N°01</text>
+</svg>

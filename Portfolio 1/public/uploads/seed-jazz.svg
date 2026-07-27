@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <linearGradient id="night" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a0b2e"/>
+      <stop offset="55%" stop-color="#3d1155"/>
+      <stop offset="100%" stop-color="#ff5c1f"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffb347"/>
+      <stop offset="100%" stop-color="#ff3d00"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1500" fill="url(#night)"/>
+  <circle cx="600" cy="980" r="330" fill="url(#sun)"/>
+  <g fill="#1a0b2e">
+    <rect x="0" y="905" width="1200" height="26"/>
+    <rect x="0" y="965" width="1200" height="34"/>
+    <rect x="0" y="1035" width="1200" height="44"/>
+    <rect x="0" y="1115" width="1200" height="56"/>
+  </g>
+  <text x="600" y="300" text-anchor="middle" fill="#ffe9d6" font-size="190" font-weight="900" letter-spacing="4">MIDNIGHT</text>
+  <text x="600" y="480" text-anchor="middle" fill="none" stroke="#ffe9d6" stroke-width="3" font-size="190" font-weight="900" letter-spacing="10">JAZZ</text>
+  <text x="600" y="620" text-anchor="middle" fill="#ffb347" font-size="46" letter-spacing="22" font-weight="700">FESTIVAL · VOL 04</text>
+  <text x="90" y="1400" fill="#ffe9d6" font-size="34" letter-spacing="4" font-weight="700">12—14 SEPT</text>
+  <text x="1110" y="1400" text-anchor="end" fill="#ffe9d6" font-size="34" letter-spacing="4">RIVERSIDE ARENA</text>
+</svg>

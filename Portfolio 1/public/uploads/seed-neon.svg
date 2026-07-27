@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <radialGradient id="orb1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#a87cff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#a87cff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orb2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fb8dff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#fb8dff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orb3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#40c4ff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#40c4ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="neonText" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#a87cff"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1500" fill="#0a0714"/>
+
+  <circle r="380" fill="url(#orb1)">
+    <animate attributeName="cx" values="380;760;480;380" dur="11s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="520;660;880;520" dur="11s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="300" fill="url(#orb2)">
+    <animate attributeName="cx" values="820;460;740;820" dur="13s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="820;560;420;820" dur="13s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="230" fill="url(#orb3)">
+    <animate attributeName="cx" values="600;860;420;600" dur="9s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="420;760;700;420" dur="9s" repeatCount="indefinite"/>
+  </circle>
+
+  <circle cx="600" cy="640" r="330" fill="none" stroke="#a87cff" stroke-width="2" stroke-dasharray="12 22" opacity="0.55">
+    <animateTransform attributeName="transform" type="rotate" from="0 600 640" to="360 600 640" dur="24s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="600" cy="640" r="400" fill="none" stroke="#fb8dff" stroke-width="1" stroke-dasharray="4 30" opacity="0.35">
+    <animateTransform attributeName="transform" type="rotate" from="360 600 640" to="0 600 640" dur="30s" repeatCount="indefinite"/>
+  </circle>
+
+  <text x="600" y="1150" text-anchor="middle" fill="url(#neonText)" font-size="210" font-weight="900" letter-spacing="24">NEON
+    <animate attributeName="opacity" values="1;0.75;1" dur="3.5s" repeatCount="indefinite"/>
+  </text>
+  <text x="600" y="1225" text-anchor="middle" fill="#8a7f9f" font-size="34" letter-spacing="14">AI MOTION STUDY · LOOP 001</text>
+  <text x="90" y="120" fill="#a87cff" font-size="30" letter-spacing="8" font-weight="700">GENERATIVE IDENT</text>
+  <text x="1110" y="120" text-anchor="end" fill="#8a7f9f" font-size="30" letter-spacing="6">N°07</text>
+</svg>
